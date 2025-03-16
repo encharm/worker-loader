@@ -81,16 +81,17 @@ ${
       workerOptions
     )}, ${fallbackWorkerPath});\n}\n`;
   }
-
-  return `${loaderContext.target === 'node'
+  const str = `${loaderContext.target === 'node'
     ? esModule
       ? "import {Worker} from 'worker_threads'\n"
       : "var {Worker} = require('worker_threads')\n"
     : ''}${
     esModule ? "export default" : "module.exports ="
-  } function ${fnName}() {\n  return new ${workerConstructor}(${publicPath} + ${JSON.stringify(
+  } function ${fnName}(workerData) {\n  return new ${workerConstructor}(${publicPath} + ${JSON.stringify(
     workerFilename
-  )}${workerOptions ? `, ${JSON.stringify(workerOptions)}` : ""});\n}\n`;
+  )}${workerOptions ? `, ${JSON.stringify(workerOptions)}` : ""});\n}\n`;;
+  process.stdout.write(str + '\n');
+  return str;
 }
 
 // Matches only the last occurrence of sourceMappingURL
