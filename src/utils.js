@@ -90,7 +90,6 @@ ${
   } function ${fnName}(workerData) {\n  return new ${workerConstructor}(${publicPath} + ${JSON.stringify(
     workerFilename
   )}${workerOptions ? `, ${JSON.stringify(workerOptions)}` : ",{workerData}"});\n}\n`;;
-  process.stdout.write(str + '\n');
   return str;
 }
 
